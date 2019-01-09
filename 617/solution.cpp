@@ -26,27 +26,27 @@ public:
     TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) {
         if (!t1) return t2;
 
-        stack<pair<TreeNode*, TreeNode*>> s;
-        s.push(make_pair(t1, t2));
+        stack<TreeNode**> s;
+        s.push(new (TreeNode*[2]) {t1, t2});
 
         while (!s.empty()) {
-            pair<TreeNode*, TreeNode*> t = s.top();
+            TreeNode** t = s.top();
             s.pop();
 
-            if (!t.first || !t.second) continue;
+            if (!t[0] || !t[1]) continue;
 
-            t.first->val += t.second->val;
+            t[0]->val += t[1]->val;
 
-            if (!t.first->left) {
-                t.first->left = t.second->left;
+            if (!t[0]->left) {
+                t[0]->left = t[1]->left;
             } else {
-                s.push(make_pair(t.first->left, t.second->left));
+                s.push(new (TreeNode*[2]) {t[0]->left, t[1]->left});
             }
 
-            if (!t.first->right) {
-                t.first->right = t.second->right;
+            if (!t[0]->right) {
+                t[0]->right = t[1]->right;
             } else {
-                s.push(make_pair(t.first->right, t.second->right));
+                s.push(new (TreeNode*[2]) {t[0]->right, t[1]->right});
             }
         }
         return t1;
