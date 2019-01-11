@@ -11,19 +11,24 @@
 class Solution {
 public:
     /* Recursive Version */
-	TreeNode* invertTree(TreeNode* root) {
+    TreeNode* invertTree(TreeNode* root) {
         if (!root) return NULL;
 
         TreeNode *left  = root->left;
         TreeNode *right = root->right;
 
-        root->left = invertTree(right);
-        root->right = invertTree(left);
+        root->left = right;
+        root->right = left;
+
+        if (right)
+            invertTree(right);
+        if (left)
+            invertTree(left);
 
         return root;
     }
 
-	/* Iterative Version */
+    /* Iterative Version */
     TreeNode* invertTree(TreeNode* root) {
         if (!root) return NULL;
 
