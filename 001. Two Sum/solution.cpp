@@ -1,16 +1,16 @@
 class Solution {
 public:
-    vector<int> twoSum(vector<int>& nums, int target) {
-        map<int, int> table;
-
-        for (int i = 0; i < nums.size(); i++) {
-            int key = nums[i];
-            if (table.find(target - key) != table.end()) {
-                return {table[target - key], i};
-            } else {
-                table[key] = i;
-            }
-        }
-        return {};
+     vector<int> twoSum(vector<int>& nums, int target) {
+         unordered_map<int, int> hash_table;
+         int complement;
+         
+         for(int i=0; i<nums.size(); i++) {
+             complement = target - nums[i];
+             if((hash_table.find(complement))!=hash_table.end()) {
+                 return {hash_table[complement], i};
+             }
+             hash_table[nums[i]] = i;
+         }
+         return {};
     }
 };
